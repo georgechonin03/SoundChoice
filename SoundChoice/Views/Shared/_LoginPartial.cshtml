@@ -1,0 +1,15 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<SoundChoice.Models.ApplicationUser> signInManager
+@if (signInManager.IsSignedIn(User))
+{
+}
+else
+{
+    <ul class="nav navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-black" asp-action="Register" asp-controller="Account" id="registerLink">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-black" asp-action="Login" asp-controller="Account" id="loginLink">Sign In</a>
+        </li>
+    </ul>
+}
