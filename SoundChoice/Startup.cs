@@ -52,6 +52,8 @@ namespace SoundChoice
 
             app.UseAuthorization();
 
+            app.UseAuthenthication();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
