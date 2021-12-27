@@ -52,7 +52,7 @@ namespace SoundChoice
 
             app.UseAuthorization();
 
-            app.UseAuthenthication();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
