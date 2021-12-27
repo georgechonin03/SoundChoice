@@ -40,7 +40,7 @@ namespace SoundChoice.Controllers
                 {
                     UserName = model.Email,
                     Email=model.Email,
-                    Name = model.Name
+                    //Name = model.Name
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -66,7 +66,7 @@ namespace SoundChoice.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.Valid)
+            if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
