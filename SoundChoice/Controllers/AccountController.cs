@@ -11,6 +11,7 @@ namespace SoundChoice.Controllers
 {
     public class AccountController : Controller
     {
+        
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;

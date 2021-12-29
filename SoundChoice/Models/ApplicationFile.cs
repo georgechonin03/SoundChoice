@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SoundChoice.Models.ViewModels
+namespace SoundChoice.Models
 {
-    public class UploadViewModel
+    public class ApplicationFile 
     {
+        [Required]
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
@@ -11,6 +12,5 @@ namespace SoundChoice.Models.ViewModels
         public string? Genre { get; set; }
         public double? BPM { get; set; }
         public byte[] Content { get; set; }
-
     }
 }
