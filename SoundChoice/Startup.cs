@@ -27,6 +27,7 @@ namespace SoundChoice
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //Connection to the database
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();

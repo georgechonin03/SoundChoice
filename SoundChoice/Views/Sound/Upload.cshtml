@@ -21,6 +21,12 @@
    
     </form>
      */
+     <h2>Upload</h2>
+    <form id="sound" method="post" asp-action="Upload" asp-controller="Sound">
+    <h4>Enter your file's properties so it can be found easily.</h4>
+    <hr />
+
+    </form>
     <form enctype="multipart/form-data" method="post">
     <dl>
         <dt>
@@ -29,11 +35,13 @@
         <dd>
             <input asp-for="FileUpload.FormFile" type="file">
         </dd>
+        <dd><input asp-page-handler="Upload" class="btn-bg-success" type="submit" value="Upload"></dd>
+        <a asp-action="Details" asp-controller="Sound" id="detailsLink"><dd class="btn bg-success text-white" >Next</dd></a>
     </dl>
-    <input asp-page-handler="Upload" class="btn-bg-success" type="submit" value="Upload">
+   
     </form>
 }
 else
 {
-    <header>Sign in in order to upload.</header>
+    <header>Sign in to upload.</header>
 }

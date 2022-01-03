@@ -1,5 +1,8 @@
 ﻿namespace SoundChoice.Models
 {
+    /// <summary>
+    /// Additional properties for tagging a file.
+    /// </summary>
     public class SoundType
     {
         public bool Effect { get; set; }

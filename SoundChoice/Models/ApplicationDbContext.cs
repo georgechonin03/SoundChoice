@@ -9,6 +9,7 @@ namespace SoundChoice.Models
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<ApplicationFile> File { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext>options) : base(options)
         {
 

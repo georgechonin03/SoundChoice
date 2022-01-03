@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SoundChoice.Models.ViewModels
 {
+    /// <summary>
+    /// Defines properties for registration of a user.
+    /// </summary>
     public class RegisterViewModel
     {
         [Required]

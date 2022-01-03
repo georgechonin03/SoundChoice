@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SoundChoice.Models.ViewModels
 {
+    /// <summary>
+    /// Defines properties for logging a user in.
+    /// </summary>
     public class LoginViewModel
     {
         [Required]

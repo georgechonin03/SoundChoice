@@ -31,6 +31,10 @@ namespace SoundChoice.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// Register post method. Redirects the user to the home page if the process is successful.
+        /// </summary>
+        /// <returns>The ViewResult object on the basis of the model parameter.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -57,12 +61,21 @@ namespace SoundChoice.Controllers
             }
             return View(model);
         }
+        /// <summary>
+        /// Signs out the user of their account.
+        /// </summary>
+        /// <returns>Redirected to the login page.</returns>
         [HttpPost]
         public async Task<IActionResult> Logoff()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+        /// <summary>
+        /// Login post method. Redirects users to the home page if the process is successful.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>The ViewResult object on the basis of the model parameter.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)

@@ -14,11 +14,16 @@ namespace SoundChoice.Controllers
         {
             return View();
         }
+        public IActionResult Details()
+        {
+            return View();
+        }
         public async Task<IActionResult> OnPostUploadAsync()
         {
             using (var memoryStream = new MemoryStream())
             {
                 await model.FileUpload.FormFile.CopyToAsync(memoryStream);
+
                 //Upload file if less than 50mb
                 if (memoryStream.Length < 52428800)
                 {
