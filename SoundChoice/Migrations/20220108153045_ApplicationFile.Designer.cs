@@ -12,7 +12,7 @@ using SoundChoice.Models;
 namespace SoundChoice.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211229074737_ApplicationFile")]
+    [Migration("20220108153045_ApplicationFile")]
     partial class ApplicationFile
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,6 +155,40 @@ namespace SoundChoice.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("SoundChoice.Models.ApplicationFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double?>("BPM")
+                        .HasMaxLength(256)
+                        .HasColumnType("float");
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Genre")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Type")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("File");
                 });
 
             modelBuilder.Entity("SoundChoice.Models.ApplicationUser", b =>
