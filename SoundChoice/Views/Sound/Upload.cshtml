@@ -1,4 +1,4 @@
-﻿@model SoundChoice.Upload.BufferedSingleFileUploadDbModel
+﻿@model SoundChoice.Views.Sound.UploadPhysicalModel
 @inject Microsoft.AspNetCore.Identity.SignInManager<SoundChoice.Models.ApplicationUser> signInManager
 
 @if (signInManager.IsSignedIn(User))
@@ -20,12 +20,12 @@
     </div>
    
     </form>
-     */
+     
      <h2>Upload</h2>
     <form id="sound" method="post" asp-action="Upload" asp-controller="Sound">
     <h4>Enter your file's properties so it can be found easily.</h4>
     <hr />
-
+   
     </form>
     <form enctype="multipart/form-data" method="post">
     <dl>
@@ -38,8 +38,25 @@
         <dd><input asp-page-handler="Upload" class="btn-bg-success" type="submit" value="Upload"></dd>
         <a asp-action="Details" asp-controller="Sound" id="detailsLink"><dd class="btn bg-success text-white" >Next</dd></a>
     </dl>
+    
    
     </form>
+    */
+     <h2>Upload</h2>
+    
+<form enctype="multipart/form-data" method="post">
+    <dl>
+        <dt>
+            <label asp-for="FileUpload.FormFile"></label>
+        </dt>
+        <dd>
+            <input asp-for="FileUpload.FormFile" type="file"/>
+            <span asp-validation-for="FileUpload.FormFile"></span>
+        </dd>
+    </dl>    
+    <input asp-page-handler="Upload" class="btn" type="submit" value="Upload" />
+</form>
+
 }
 else
 {
