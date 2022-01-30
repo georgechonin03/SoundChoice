@@ -1,17 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SoundChoice.Models.ViewModels
+namespace SoundChoice.Models
 {
-    public class UploadViewModel
+    public class ApplicationFile
     {
         [Required]
-        [DataType(DataType.Text)]
-        [StringLength(100, ErrorMessage ="This field cannot be empty.")]
         public string Title { get; set; }
         public string? Type { get; set; }
         public string? Genre { get; set; }
         public double? BPM { get; set; }
         public IFormFile File { get; set; }
-
     }
 }
