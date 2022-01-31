@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SoundChoice.Models.ApplicationFile
+@{
     ViewData["Title"] = "Home Page";
 }
 <div class="text-center">
@@ -13,9 +14,12 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
          </form>
          <form class="form-inline my-2 my-lg-0">
-         <label style="padding-top:40px;">Fantasy</label>
-         <audio style="width: 100%; padding: 10px 0 10px 0;" controls>
-             <source src="~/Uploaded/upload.mp3" type="audio/mp3" />
-         </audio>
-         </form>
+        @foreach(var item in Model.Files)
+        {
+            <label style="padding-top:40px;">@item</label>
+            <audio controls style="width: 100%; padding: 10px 0 10px 0;">
+                <source src="~/Uploads/@item"/>
+            </audio>
+        }
+    </form>
 </div>

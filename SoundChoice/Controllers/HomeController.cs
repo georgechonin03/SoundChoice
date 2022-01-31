@@ -15,7 +15,12 @@ namespace SoundChoice.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new ApplicationFile()
+            {
+                Files = Directory.GetFiles(@"C:\Users\georg\source\repos\SoundChoice\SoundChoice\wwwroot\Uploads\").Select(file =>
+                 Path.GetFileName(file)).ToList()
+            };
+            return View(model);
         }
 
         public IActionResult Privacy()
