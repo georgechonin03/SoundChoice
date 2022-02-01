@@ -15,7 +15,7 @@ namespace SoundChoice.Controllers
 
         public IActionResult Index()
         {
-            var model = new ApplicationFile()
+            var model = new AudioFiles()
             {
                 Files = Directory.GetFiles(@"C:\Users\georg\source\repos\SoundChoice\SoundChoice\wwwroot\Uploads\").Select(file =>
                  Path.GetFileName(file)).ToList()
