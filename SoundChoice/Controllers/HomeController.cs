@@ -24,12 +24,7 @@ namespace SoundChoice.Controllers
                 .GetFileName(file))
                 .ToList()
             };
-            /*
-            DirectoryInfo dirInfo = new DirectoryInfo(@"C:\Users\georg\source\repos\SoundChoice\SoundChoice\wwwroot\Uploads\");
-            var files = new ApplicationFile()
-            {
-                Files = dirInfo.GetFiles().ToList()
-            };*/
+
             return View(model);
         }
     

@@ -26,7 +26,6 @@ namespace SoundChoice.Controllers
                 Directory.CreateDirectory(path);
             }
 
-            //string fileName = Path.GetFileName(upload.File.FileName);
             string fileName = $"{upload.Title}{Path.GetExtension(upload.File.FileName)}";
             var ext = Path.GetExtension(fileName);
 
@@ -37,6 +36,7 @@ namespace SoundChoice.Controllers
             {
                 if (string.IsNullOrEmpty(ext) || !_permittedExtensions.Contains(ext) || _excludedCharacters.Contains(fileName))
                 {
+                    // Make it more elegant
                     throw new Exception("The file has an invalid name or extension. Please try again.");
                 }
                 else
