@@ -1,6 +1,6 @@
 ﻿namespace SoundChoice.Models
 {
-    public class AudioFiles : ApplicationFile
+    public class AudioFiles
     {
         public List<string> Files { get; set; }
     }

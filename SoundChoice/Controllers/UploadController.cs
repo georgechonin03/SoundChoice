@@ -8,6 +8,7 @@ namespace SoundChoice.Controllers
     {
         private IHostingEnvironment _environment;
         private string[] _permittedExtensions = { ".mp3", ".wav", ".m4a", ".flac", ".wma", ".aac", ".ogg" };
+        private string[] _excludedCharacters = { "#", "%", "&", "{", "}", "/", @"\", "<", ">", "?", "$", "!", "'", ":", "@", "+", "`", "|", "=" ," "};
         public UploadController(IHostingEnvironment environment)
         {
             _environment = environment;
@@ -25,22 +26,23 @@ namespace SoundChoice.Controllers
                 Directory.CreateDirectory(path);
             }
 
-            string fileName = Path.GetFileName(upload.File.FileName);
-            var ext = Path.GetExtension(path);
+            //string fileName = Path.GetFileName(upload.File.FileName);
+            string fileName = $"{upload.Title}{Path.GetExtension(upload.File.FileName)}";
+            var ext = Path.GetExtension(fileName);
 
 
             using (var fileStream = new FileStream(Path.Combine(path, fileName),
                 FileMode.Create,
                 FileAccess.Write))
             {
-                if (string.IsNullOrEmpty(ext) || !_permittedExtensions.Contains(ext))
+                if (string.IsNullOrEmpty(ext) || !_permittedExtensions.Contains(ext) || _excludedCharacters.Contains(fileName))
                 {
-                    throw new Exception("The file is invalid. Please try again.");
+                    throw new Exception("The file has an invalid name or extension. Please try again.");
                 }
                 else
                     upload.File.CopyTo(fileStream);
             }
-            ViewBag.Data = "data:audio/wav;base64," + Convert.ToBase64String(System.IO.File.ReadAllBytes(Path.Combine(path, fileName)));
+            //ViewBag.Data = "data:audio/wav;base64," + Convert.ToBase64String(System.IO.File.ReadAllBytes(Path.Combine(path, fileName)));
             return RedirectToAction("Index", "Home");
         }
     }
