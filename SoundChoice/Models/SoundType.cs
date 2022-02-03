@@ -2,9 +2,9 @@
 {
     public class SoundType
     {
-        public bool Effect { get; set; }
-        public bool Loop { get; set; }
-        public bool OneShot { get; set; }
-        public bool Sample { get; set; }
+        public string Effect { get; set; }
+        public string Loop { get; set; }
+        public string OneShot { get; set; }
+        public string Sample { get; set; }
     }
 }

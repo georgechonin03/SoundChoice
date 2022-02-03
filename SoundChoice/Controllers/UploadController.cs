@@ -18,14 +18,14 @@ namespace SoundChoice.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Upload(ApplicationFile upload)
+        public IActionResult Upload(AudioFiles upload)
         {
             string path = Path.Combine(this._environment.WebRootPath, "Uploads");
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-
+            //Combining the user-generated title with the corresponding extension
             string fileName = $"{upload.Title}{Path.GetExtension(upload.File.FileName)}";
             var ext = Path.GetExtension(fileName);
 

@@ -24,7 +24,6 @@ namespace SoundChoice.Controllers
                 .GetFileName(file))
                 .ToList()
             };
-
             return View(model);
         }
     
