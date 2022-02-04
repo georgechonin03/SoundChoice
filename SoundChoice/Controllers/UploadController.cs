@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using SoundChoice.Models;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
@@ -9,9 +10,11 @@ namespace SoundChoice.Controllers
         private IHostingEnvironment _environment;
         private string[] _permittedExtensions = { ".mp3", ".wav", ".m4a", ".flac", ".wma", ".aac", ".ogg" };
         private string[] _excludedCharacters = { "#", "%", "&", "{", "}", "/", @"\", "<", ">", "?", "$", "!", "'", ":", "@", "+", "`", "|", "=" ," "};
-        public UploadController(IHostingEnvironment environment)
+        private IConfiguration _configuration { get; }
+        public UploadController(IHostingEnvironment environment, IConfiguration configuration)
         {
             _environment = environment;
+            _configuration = configuration;
         }
         public IActionResult Upload()
         {
@@ -42,7 +45,23 @@ namespace SoundChoice.Controllers
                 else
                     upload.File.CopyTo(fileStream);
             }
-            //ViewBag.Data = "data:audio/wav;base64," + Convert.ToBase64String(System.IO.File.ReadAllBytes(Path.Combine(path, fileName)));
+            //Code that saves the file's information to the database
+            string mainConnection = _configuration.GetConnectionString("DefaultConnection");
+            SqlConnection sqlConnection = new SqlConnection(mainConnection);
+            string sqlQuery = "INSERT INTO [dbo].[ApplicationFile] VALUES (@Path,@Title,@Type, @Genre, @BPM)";
+            SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
+            sqlConnection.Open();
+
+            sqlCommand.Parameters.AddWithValue("@Path",Path.Combine(path, fileName));
+            sqlCommand.Parameters.AddWithValue("@Title", fileName);
+            sqlCommand.Parameters.AddWithValue(@"Type", upload.Type);
+            sqlCommand.Parameters.AddWithValue(@"Genre", upload.Genre);
+            sqlCommand.Parameters.AddWithValue(@"BPM", upload.BPM);
+            
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+
+
             return RedirectToAction("Index", "Home");
         }
     }
