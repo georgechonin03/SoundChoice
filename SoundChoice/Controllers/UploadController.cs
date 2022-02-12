@@ -63,20 +63,6 @@ namespace SoundChoice.Controllers
 
             sql.Command.ExecuteNonQuery();
             sql.Connection.Close();
-            /*             SqlConnection sqlConnection = new SqlConnection(mainConnection);
-                        string sqlQuery = "INSERT INTO [dbo].[ApplicationFile] VALUES (@Path,@Title,@Type, @Genre, @BPM)";
-                       SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
-                        sqlConnection.Open();
-
-                        sqlCommand.Parameters.AddWithValue("@Path",Path.Combine(path, fileName));
-                        sqlCommand.Parameters.AddWithValue("@Title", fileName);
-                        sqlCommand.Parameters.AddWithValue(@"Type", upload.Type);
-                        sqlCommand.Parameters.AddWithValue(@"Genre", upload.Genre);
-                        sqlCommand.Parameters.AddWithValue(@"BPM", upload.BPM);
-
-                        sqlCommand.ExecuteNonQuery();
-                        sqlConnection.Close();*/
-
 
             return RedirectToAction("Index", "Home");
         }
