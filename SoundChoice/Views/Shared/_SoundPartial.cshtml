@@ -1,0 +1,13 @@
+﻿@model SoundChoice.Models.AudioFiles
+     <form class="form-inline my-2 my-lg-0">
+        @foreach(var file in Model.Files)
+        {
+            <label style="padding-top:40px;">@file</label>
+            <audio controls style="width: 100%; padding: 10px 0 10px 0;">
+                <source src="~/Uploads/@file"/>
+        </audio>
+        if(Model.Files.Count > 10)
+        {
+        }
+    }
+    </form>

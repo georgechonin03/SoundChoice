@@ -1,5 +1,4 @@
-﻿@model SoundChoice.Models.AudioFiles
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 <div class="text-center">
@@ -9,18 +8,10 @@
 <div class="select2-container">
     
         <form class="form-inline my-2 my-lg-0">
-            <form id="search" method="get" asp-action="Search" asp-controller="Home">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <form id="search" method="post" asp-action="Search" asp-controller="Home">
+                <input class="form-control mr-sm-2" type="search" name="searchString" placeholder="Search" aria-label="Search" >
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>    
         </form>
-         <form class="form-inline my-2 my-lg-0">
-        @foreach(var file in Model.Files)
-        {
-            <label style="padding-top:40px;">@file</label>
-            <audio controls style="width: 100%; padding: 10px 0 10px 0;">
-                <source src="~/Uploads/@file"/>
-            </audio>
-        }
-    </form>
+        <partial name="_SoundPartial"  />
 </div>
