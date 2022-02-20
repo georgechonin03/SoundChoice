@@ -39,16 +39,17 @@ namespace SoundChoice.Controllers
         private AudioFiles GetAudioFile(string path)
         {
             string fileName = Path.GetFileName(path);
+            string fullPath = Path.GetDirectoryName(path);
             var model = new AudioFiles()
             {
-                Files = Directory.GetFiles(Path.Combine(_environment.WebRootPath, "Uploads"), fileName).ToList()
+                Files = Directory.GetFiles(fullPath, fileName).ToList()
             };
             return model;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            Search("goodbye");
+            Search("hiphop");
             return View(GetAudioFiles(Path.Combine(_environment.WebRootPath, "Uploads")));
         }
         [HttpPost]
