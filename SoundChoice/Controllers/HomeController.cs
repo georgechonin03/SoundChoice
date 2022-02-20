@@ -36,21 +36,20 @@ namespace SoundChoice.Controllers
             };
             return model;
         }
-        /// <summary>
-        /// Method needs reworking. 
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns>Must retrieve only a single file using its path</returns>
         private AudioFiles GetAudioFile(string path)
         {
-            var model = new AudioFiles();
+            string fileName = Path.GetFileName(path);
+            var model = new AudioFiles()
+            {
+                Files = Directory.GetFiles(Path.Combine(_environment.WebRootPath, "Uploads"), fileName).ToList()
+            };
             return model;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            // Search("goodbye");
-            return View(GetAudioFiles(Path.Combine(this._environment.WebRootPath, "Uploads")));
+            Search("goodbye");
+            return View(GetAudioFiles(Path.Combine(_environment.WebRootPath, "Uploads")));
         }
         [HttpPost]
         public IActionResult Search(string searchString)
@@ -87,7 +86,7 @@ namespace SoundChoice.Controllers
                  x.Type.Contains(searchString) ||
                  x.Genre.Contains(searchString));
              }
-             return View(query.ToList());
+             return View();
          }*/
 
 
