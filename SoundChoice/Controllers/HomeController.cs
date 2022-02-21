@@ -42,14 +42,14 @@ namespace SoundChoice.Controllers
             string fullPath = Path.GetDirectoryName(path);
             var model = new AudioFiles()
             {
-                Files = Directory.GetFiles(fullPath, fileName).ToList()
+                Files = Directory.GetFiles(fullPath, fileName).Select(file => 
+                Path.GetFileName(file))
+                .ToList()
             };
             return model;
         }
-        [HttpGet]
         public IActionResult Index()
         {
-            Search("hiphop");
             return View(GetAudioFiles(Path.Combine(_environment.WebRootPath, "Uploads")));
         }
         [HttpPost]
@@ -65,6 +65,8 @@ namespace SoundChoice.Controllers
             sql.Reader = sql.Command.ExecuteReader();
             while (sql.Reader.Read())
             {
+                /*List<string> paths = new List<string>();
+                paths.Add((string)sql.Reader["Path"]);*/
                 string path = (string)sql.Reader["Path"];
                 return View(GetAudioFile(path));
             }
@@ -73,9 +75,9 @@ namespace SoundChoice.Controllers
             return RedirectToAction("Index");
         }
 
-
-        /* [HttpPost]
-         public IActionResult Search(string searchString)
+/*
+         [HttpPost]
+         public IActionResult Searchs(string searchString)
          {
 
              var query = from x in _db.ApplicationFile select x;
@@ -86,6 +88,8 @@ namespace SoundChoice.Controllers
                  x.Title.Contains(searchString) || 
                  x.Type.Contains(searchString) ||
                  x.Genre.Contains(searchString));
+
+
              }
              return View();
          }*/
