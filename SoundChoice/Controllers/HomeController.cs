@@ -36,7 +36,32 @@ namespace SoundChoice.Controllers
             };
             return model;
         }
-        private AudioFiles GetAudioFile(string path)
+        
+        private AudioFiles GetAudioFilesSearch(string path, string searchString)
+        {
+            var model = new AudioFiles()
+            {
+                Files = Directory.GetFiles(path).Select(file => Path
+                .GetFileName(file)).Where(file => file.ToLower().Contains(searchString.ToLower())).ToList()
+            };
+
+            return model;
+        }
+        public IActionResult Index()
+        {
+            return View(GetAudioFiles(Path.Combine(_environment.WebRootPath, "Uploads")));
+        }
+
+        [HttpPost]
+        public IActionResult Search(string searchString)
+        {
+            var path = Path.Combine(this._environment.WebRootPath, "Uploads");
+            var audioFiles = GetAudioFilesSearch(path, searchString);
+            return View(audioFiles);
+
+        }
+
+        /*private AudioFiles GetAudioFile(string path)
         {
             string fileName = Path.GetFileName(path);
             string fullPath = Path.GetDirectoryName(path);
@@ -47,14 +72,11 @@ namespace SoundChoice.Controllers
                 .ToList()
             };
             return model;
-        }
-        public IActionResult Index()
-        {
-            return View(GetAudioFiles(Path.Combine(_environment.WebRootPath, "Uploads")));
-        }
-        [HttpPost]
+        }*/
+        /*[HttpPost]
         public IActionResult Search(string searchString)
         {
+            var paths = new List<string>();
             string mainConnection = _configuration.GetConnectionString("DefaultConnection");
             SqlModel sql = new SqlModel();
             sql.Connection = new SqlConnection(mainConnection);
@@ -63,36 +85,41 @@ namespace SoundChoice.Controllers
 
             sql.Connection.Open();
             sql.Reader = sql.Command.ExecuteReader();
-            while (sql.Reader.Read())
+            while (sql.Reader.HasRows)
             {
-                /*List<string> paths = new List<string>();
-                paths.Add((string)sql.Reader["Path"]);*/
-                string path = (string)sql.Reader["Path"];
-                return View(GetAudioFile(path));
+                while (sql.Reader.Read())
+                {
+                    *//*List<string> paths = new List<string>();
+                    paths.Add((string)sql.Reader["Path"]);*//*
+                    string path = (string)sql.Reader["Path"];
+                    paths.Add(path);
+                    return View(GetAudioFile(path));
+                }
+                sql.Reader.NextResult();
             }
             sql.Connection.Close();
 
             return RedirectToAction("Index");
-        }
+        }*/
 
-/*
-         [HttpPost]
-         public IActionResult Searchs(string searchString)
-         {
+        /*
+                 [HttpPost]
+                 public IActionResult Searchs(string searchString)
+                 {
 
-             var query = from x in _db.ApplicationFile select x;
-             var model = new AudioFiles();
-             if (!String.IsNullOrEmpty(searchString))
-             {
-                 query = query.Where(x => 
-                 x.Title.Contains(searchString) || 
-                 x.Type.Contains(searchString) ||
-                 x.Genre.Contains(searchString));
+                     var query = from x in _db.ApplicationFile select x;
+                     var model = new AudioFiles();
+                     if (!String.IsNullOrEmpty(searchString))
+                     {
+                         query = query.Where(x => 
+                         x.Title.Contains(searchString) || 
+                         x.Type.Contains(searchString) ||
+                         x.Genre.Contains(searchString));
 
 
-             }
-             return View();
-         }*/
+                     }
+                     return View();
+                 }*/
 
 
         public IActionResult Privacy()

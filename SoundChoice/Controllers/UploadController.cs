@@ -8,18 +8,15 @@ namespace SoundChoice.Controllers
     public class UploadController : Controller
     {
         private IHostingEnvironment _environment;
-        //Maybe use EntityFramework?
-        private ApplicationDbContext _db;
         private string[] _permittedExtensions = { ".mp3", ".wav", ".m4a", ".flac", ".wma", ".aac", ".ogg" };
         private string[] _excludedCharacters = { "#", "%", "&", "{", "}", "/", @"\", "<", ">", "?", "$", "!", "'", ":", "@", "+", "`", "|", "=" ," "};
         //private char[] _excludedCharacters = { '#', '%', '&', '{', '}', '/', ' ', '<', '>', '?', '$', '!', '"', ':', '@', '+', '`', '|', '='};
 
         private IConfiguration _configuration { get; }
-        public UploadController(IHostingEnvironment environment, IConfiguration configuration, ApplicationDbContext db)
+        public UploadController(IHostingEnvironment environment, IConfiguration configuration)
         {
             _environment = environment;
             _configuration = configuration;
-            _db = db;
         }
         public IActionResult Upload()
         {
@@ -56,7 +53,7 @@ namespace SoundChoice.Controllers
             _db.SaveChanges();*/
             
             //Code that saves the file's information to the database
-            string mainConnection = _configuration.GetConnectionString("DefaultConnection");
+            /*string mainConnection = _configuration.GetConnectionString("DefaultConnection");
             SqlModel sql = new SqlModel();
             sql.Connection = new SqlConnection(mainConnection);
             sql.Query = "INSERT INTO [dbo].[ApplicationFile] VALUES (@Path,@Title,@Type, @Genre, @BPM)";
@@ -70,7 +67,7 @@ namespace SoundChoice.Controllers
             sql.Command.Parameters.AddWithValue(@"BPM", upload.BPM);
 
             sql.Command.ExecuteNonQuery();
-            sql.Connection.Close();
+            sql.Connection.Close();*/
 
             return RedirectToAction("Index", "Home");
         }
