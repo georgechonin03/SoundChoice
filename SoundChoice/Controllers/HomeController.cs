@@ -36,7 +36,12 @@ namespace SoundChoice.Controllers
             };
             return model;
         }
-        
+        /// <summary>
+        /// Gets the files that meet the specified criteria
+        /// </summary>
+        /// <param name="path">The directory of the files</param>
+        /// <param name="searchString">The criteria that is searched for</param>
+        /// <returns>A list of files.</returns>
         private AudioFiles GetAudioFilesSearch(string path, string searchString)
         {
             var model = new AudioFiles()

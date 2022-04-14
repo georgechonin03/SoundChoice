@@ -32,21 +32,24 @@ namespace SoundChoice.Controllers
             }
             //Combining the user-generated title with the corresponding extension
             string fileName = $"{upload.Title}{Path.GetExtension(upload.File.FileName)}";
+
+            //Checking whether the file extension is permitted.
             var ext = Path.GetExtension(fileName);
-
-
-            using (var fileStream = new FileStream(Path.Combine(path, fileName),
+            if (string.IsNullOrEmpty(ext) || !_permittedExtensions.Contains(ext) || _excludedCharacters.Contains(fileName))
+            {
+                // To-do: Make it more elegant
+                throw new Exception("The file has an invalid name or extension. Please try again.");
+            }
+            else
+            {
+                using (var fileStream = new FileStream(Path.Combine(path, fileName),
                 FileMode.Create,
                 FileAccess.Write))
-            {
-                if (string.IsNullOrEmpty(ext) || !_permittedExtensions.Contains(ext) || _excludedCharacters.Contains(fileName))
                 {
-                    // To-do: Make it more elegant
-                    throw new Exception("The file has an invalid name or extension. Please try again.");
-                }
-                else
                     upload.File.CopyTo(fileStream);
+                }
             }
+
 
 /*
             _db.Add(upload);
