@@ -9,14 +9,9 @@ namespace SoundChoice.Controllers
     {
         private IHostingEnvironment _environment;
         private string[] _permittedExtensions = { ".mp3", ".wav", ".m4a", ".flac", ".wma", ".aac", ".ogg" };
-        private string[] _excludedCharacters = { "#", "%", "&", "{", "}", "/", @"\", "<", ">", "?", "$", "!", "'", ":", "@", "+", "`", "|", "=" ," "};
-        //private char[] _excludedCharacters = { '#', '%', '&', '{', '}', '/', ' ', '<', '>', '?', '$', '!', '"', ':', '@', '+', '`', '|', '='};
-
-        private IConfiguration _configuration { get; }
-        public UploadController(IHostingEnvironment environment, IConfiguration configuration)
+        public UploadController(IHostingEnvironment environment)
         {
             _environment = environment;
-            _configuration = configuration;
         }
         public IActionResult Upload()
         {
@@ -35,9 +30,8 @@ namespace SoundChoice.Controllers
 
             //Checking whether the file extension is permitted.
             var ext = Path.GetExtension(fileName);
-            if (string.IsNullOrEmpty(ext) || !_permittedExtensions.Contains(ext) || _excludedCharacters.Contains(fileName))
+            if (string.IsNullOrEmpty(ext) || !_permittedExtensions.Contains(ext))
             {
-                // To-do: Make it more elegant
                 throw new Exception("The file has an invalid name or extension. Please try again.");
             }
             else
@@ -49,29 +43,6 @@ namespace SoundChoice.Controllers
                     upload.File.CopyTo(fileStream);
                 }
             }
-
-
-/*
-            _db.Add(upload);
-            _db.SaveChanges();*/
-            
-            //Code that saves the file's information to the database
-            /*string mainConnection = _configuration.GetConnectionString("DefaultConnection");
-            SqlModel sql = new SqlModel();
-            sql.Connection = new SqlConnection(mainConnection);
-            sql.Query = "INSERT INTO [dbo].[ApplicationFile] VALUES (@Path,@Title,@Type, @Genre, @BPM)";
-            sql.Command = new SqlCommand(sql.Query, sql.Connection);
-
-            sql.Connection.Open();
-            sql.Command.Parameters.AddWithValue("@Path", Path.Combine(path, fileName));
-            sql.Command.Parameters.AddWithValue("@Title", fileName);
-            sql.Command.Parameters.AddWithValue(@"Type", upload.Type);
-            sql.Command.Parameters.AddWithValue(@"Genre", upload.Genre);
-            sql.Command.Parameters.AddWithValue(@"BPM", upload.BPM);
-
-            sql.Command.ExecuteNonQuery();
-            sql.Connection.Close();*/
-
             return RedirectToAction("Index", "Home");
         }
     }

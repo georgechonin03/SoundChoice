@@ -13,6 +13,5 @@ namespace SoundChoice.Models
         {
 
         }
-        public DbSet<ApplicationFile> ApplicationFile { get; set; }
     }
 }
