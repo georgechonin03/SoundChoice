@@ -11,14 +11,12 @@ namespace SoundChoice.Controllers
 {
     public class AccountController : Controller
     {
-        //private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
         public AccountController( UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser>signInManager)
         {
-            //_db = db;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -39,8 +37,7 @@ namespace SoundChoice.Controllers
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
-                    Email=model.Email,
-                    //Name = model.Name
+                    Email=model.Email
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

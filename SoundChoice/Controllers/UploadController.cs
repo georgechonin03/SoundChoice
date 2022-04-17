@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using SoundChoice.Models;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
@@ -32,7 +31,7 @@ namespace SoundChoice.Controllers
             var ext = Path.GetExtension(fileName);
             if (string.IsNullOrEmpty(ext) || !_permittedExtensions.Contains(ext))
             {
-                throw new Exception("The file has an invalid name or extension. Please try again.");
+                return RedirectToAction("Index", "Home");
             }
             else
             {

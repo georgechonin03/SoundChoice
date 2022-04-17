@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using SoundChoice.Models;
 using System.Diagnostics;
@@ -10,8 +9,10 @@ namespace SoundChoice.Controllers
     public class HomeController : Controller
     {
         private IHostingEnvironment _environment;
+        private readonly ILogger<HomeController> _logger;
         public HomeController(ILogger<HomeController> logger, IHostingEnvironment environment)
         {
+            _logger = logger;
             _environment = environment;
         }
 
